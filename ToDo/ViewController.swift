@@ -25,7 +25,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        todos = [TodoModel(id: "1", image: "facebook", title: "买菜", date: dateFromString("2014-10-28")!), TodoModel(id: "2", image: "google", title: "画图", date: dateFromString("2014-11-02")!), TodoModel(id: "3", image: "google", title: "带孩子", date: dateFromString("2014-11-11")!), TodoModel(id: "4", image: "facebook", title: "煮饭", date: dateFromString("2015-06-12")!)]
+        todos = [TodoModel(id: "1", image: "book_selected", title: "买菜", date: dateFromString("2014-10-28")!), TodoModel(id: "2", image: "Child_selected", title: "画图", date: dateFromString("2014-11-02")!), TodoModel(id: "3", image: "car_selected", title: "带孩子", date: dateFromString("2014-11-11")!), TodoModel(id: "4", image: "Android_selected", title: "煮饭", date: dateFromString("2015-06-12")!)]
         
         navigationItem.leftBarButtonItem = editButtonItem()
     }
