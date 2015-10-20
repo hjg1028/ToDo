@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E914FACE1BD67CD800D2FECD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914FACD1BD67CD800D2FECD /* DetailViewController.swift */; };
 		E946EB241BAEEC3B00F290F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E946EB231BAEEC3B00F290F9 /* AppDelegate.swift */; };
 		E946EB261BAEEC3B00F290F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E946EB251BAEEC3B00F290F9 /* ViewController.swift */; };
 		E946EB291BAEEC3B00F290F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E946EB271BAEEC3B00F290F9 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E914FACD1BD67CD800D2FECD /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E946EB201BAEEC3B00F290F9 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E946EB231BAEEC3B00F290F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E946EB251BAEEC3B00F290F9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				E946EB231BAEEC3B00F290F9 /* AppDelegate.swift */,
 				E9A5C6801BB424E00035B1E4 /* TodoModel.swift */,
 				E946EB251BAEEC3B00F290F9 /* ViewController.swift */,
+				E914FACD1BD67CD800D2FECD /* DetailViewController.swift */,
 				E946EB271BAEEC3B00F290F9 /* Main.storyboard */,
 				E946EB2A1BAEEC3B00F290F9 /* Assets.xcassets */,
 				E946EB2C1BAEEC3B00F290F9 /* LaunchScreen.storyboard */,
@@ -142,6 +145,7 @@
 				E9A5C6811BB424E00035B1E4 /* TodoModel.swift in Sources */,
 				E946EB261BAEEC3B00F290F9 /* ViewController.swift in Sources */,
 				E946EB241BAEEC3B00F290F9 /* AppDelegate.swift in Sources */,
+				E914FACE1BD67CD800D2FECD /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
