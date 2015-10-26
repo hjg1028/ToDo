@@ -9,6 +9,7 @@
 import UIKit
 
 var todos: [TodoModel] = []
+var filteredTodos: [TodoModel] = []
 
 func dateFromString(dateStr: String) -> NSDate? {
     let dateFormatter = NSDateFormatter()
@@ -17,7 +18,7 @@ func dateFromString(dateStr: String) -> NSDate? {
     return date
 }
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -28,6 +29,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         todos = [TodoModel(id: "1", image: "book_selected", title: "买菜", date: dateFromString("2014-10-28")!), TodoModel(id: "2", image: "Child_selected", title: "画图", date: dateFromString("2014-11-02")!), TodoModel(id: "3", image: "car_selected", title: "带孩子", date: dateFromString("2014-11-11")!), TodoModel(id: "4", image: "Android_selected", title: "煮饭", date: dateFromString("2015-06-12")!)]
         
         navigationItem.leftBarButtonItem = editButtonItem()
+        var contentOffset = tableView.contentOffset
+        contentOffset.y += (searchDisplayController?.searchBar.frame.height)!
+        tableView.contentOffset = contentOffset
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,13 +41,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // Mark UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todos.count
+        if tableView == searchDisplayController?.searchResultsTableView {
+            return filteredTodos.count
+        } else {
+            return todos.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("todoCell") as UITableViewCell?
-        let todo = todos[indexPath.row] as TodoModel
-        
+        let todo: TodoModel
+        if tableView == searchDisplayController?.searchResultsTableView {
+            todo = filteredTodos[indexPath.row] as TodoModel
+        } else {
+            todo = todos[indexPath.row] as TodoModel
+        }
         let image = cell!.viewWithTag(101) as! UIImageView
         let title = cell!.viewWithTag(102) as! UILabel
         let date = cell!.viewWithTag(103) as! UILabel
@@ -74,11 +86,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.setEditing(editing, animated: animated)
     }
     
+    
+    // Move Cell
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return editing
+    }
+    
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        let todo = todos.removeAtIndex(sourceIndexPath.row)
+        todos.insert(todo, atIndex: destinationIndexPath.row)
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
+        filteredTodos = todos.filter(){$0.title.rangeOfString(searchString!) != nil}
+        return true
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 80
+    }
+    
     @IBAction func close(segue: UIStoryboardSegue) {
-        print("closed")
         tableView.reloadData()
     }
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "EditTodo" {
+            let vc = segue.destinationViewController as! DetailViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            if let index = indexPath {
+                vc.todo = todos[index.row]
+            }
+        }
+    }
 
 }
 

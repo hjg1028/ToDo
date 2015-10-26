@@ -18,10 +18,37 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var itemTitle: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    var todo: TodoModel?
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         itemTitle.resignFirstResponder()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        if todo == nil {
+            androidButton.selected = true
+            navigationController?.title = "Add Todo"
+        } else {
+            navigationController?.title = "Modify Todo"
+            
+            if todo?.image == "Android_selected" {
+                androidButton.selected = true
+            }
+            else if todo?.image == "book_selected" {
+                bookButton.selected = true
+            }
+            else if todo?.image == "car_selected" {
+                carButton.selected = true
+            }
+            else if todo?.image == "Child_selected" {
+                childButton.selected = true
+            }
+            
+            itemTitle.text = todo?.title
+            datePicker.setDate((todo?.date)!, animated: true)
+        }
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,18 +97,26 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         else if carButton.selected {
             imageName = "car_selected"
         }
-        let uuid: String = NSUUID().UUIDString
-        let todo = TodoModel(id: uuid, image: imageName, title: itemTitle.text!, date: datePicker.date)
-        todos.append(todo)
+        if todo == nil {
+            let uuid: String = NSUUID().UUIDString
+            todo = TodoModel(id: uuid, image: imageName, title: itemTitle.text!, date: datePicker.date)
+            todos.append(todo!)
+        } else {
+            todo?.image = imageName
+            todo?.title = itemTitle.text!
+            todo?.date = datePicker.date
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         resignFirstResponder()
         return true
     }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         itemTitle.resignFirstResponder()
     }
+    
 }
 
 
